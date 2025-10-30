@@ -2,7 +2,7 @@
 
 Take your `x86_64` CPU to the edge by fuzzing raw instructions deep in ring 0, no user space hand holding here. This isn’t a playground toy; it’s a serious kernel module designed to smash undocumented CPU instructions and test the limits of your processor’s fault tolerance.
 
-**Features at a glance:**
+## Features at a glance:
 
 - Generate and execute randomized junk instructions on the CPU, then observe whether it crashes, faults, or surprisingly survives.
 - Save and restore every CPU register meticulously before and after execution to keep the kernel rock solid.
