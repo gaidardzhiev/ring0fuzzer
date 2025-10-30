@@ -71,6 +71,63 @@ Module parameters exposed via sysfs or at load time:
 - `watch.sh`: Script to monitor and decode fuzz logs.
 - `ioctl.c` : Example user space program to control fuzzing via ioctl.
 
+## Limitations
+
+- Instruction Generator is overly simplistic:
+  - Pure random bytes generate mostly invalid or trivial instructions.
+  - Lack of decoding aware fuzzing limits effectiveness and coverage.
+  - No use of structured opcode tables or operand constraints.
+
+- Fault Handling is limited:
+  - Only standard traps (#UD, #GP, #PF) are accounted for.
+  - Lack of handling for machine check exceptions, NMIs, or other critical faults.
+  - Recovery relies solely on die notifier, risking missed corner cases.
+
+- Execution Environment Constraints:
+  - Single fuzz thread per CPU may underutilize multi core capabilities.
+  - No explicit CPU affinity or scheduling controls to isolate fuzzing fully.
+  - Fixed 250ms instruction timeout is coarse and static.
+
+- MSR Management:
+  - Hardcoded fixed MSR list; no dynamic discovery or broader register state coverage.
+  - Failures to restore MSRs cause fuzz stop but no fallback or retry strategy.
+
+- User Space Interface:
+  - Minimal IOCTL API with no extensible command set.
+  - Binary log format hard to integrate with more advanced analysis tools.
+  - No event or error reporting beyond logs and prints.
+
+- Lack of comprehensive test harness:
+  - No automated kernel panic or hang detection.
+  - No integration with continuous integration or kernel self tests.
+
+## Further Improvements
+
+- Develop a smart instruction generator:
+  - Integrate or emulate parts of CPU instruction decoder for valid opcode synthesis.
+  - Support operand permutations and instruction prefixes meaningfully.
+
+- Expand fault and exception handling:
+  - Add support for machine check exceptions, NMIs, and other CPU specific fault vectors.
+  - Implement finer grained recovery mechanisms to prevent kernel instability.
+
+- Enhance concurrency and CPU utilization:
+  - Spawn fuzz threads on multiple cores with explicit affinity.
+  - Use isolation techniques (cgroups, namespaces) to prevent collateral kernel impact.
+
+- Improve MSR and CPU state management:
+  - Dynamically detect and snapshot wider CPU state elements, including extended registers.
+  - Implement fallback/retry on MSR restore failure to avoid premature fuzz stopping.
+
+- Enrich user space interface and tooling:
+  - Provide richer IOCTL or netlink interface for flexible control and data retrieval.
+  - Output logs in JSON or other structured format compatible with modern analysis pipelines.
+  - Develop a comprehensive user space frontend for visualization and crash triage.
+
+- Integrate automated testing and validation:
+  - Incorporate the module into kernel CI pipelines for regular regression testing.
+  - Include stress testing, panic detection, and fuzz result correlation.
+
 ---
 
 ## License
