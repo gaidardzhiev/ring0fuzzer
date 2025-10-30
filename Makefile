@@ -18,4 +18,4 @@ install: $(BIN)
 load:
 	sudo modprobe fuzzer
 
-.PHONY: all clean install
+.PHONY: all clean install load
