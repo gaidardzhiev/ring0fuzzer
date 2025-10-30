@@ -1,6 +1,6 @@
 # CPU Instruction Fuzzer Kernel Module
 
-Take your Intel Ivy Bridge CPU to the edge by fuzzing raw instructions deep in ring 0, no user space hand holding here. This isn’t a playground toy; it’s a serious kernel module designed to smash undocumented CPU instructions and test the limits of your processor’s fault tolerance.
+Take your `x86_64` CPU to the edge by fuzzing raw instructions deep in ring 0, no user space hand holding here. This isn’t a playground toy; it’s a serious kernel module designed to smash undocumented CPU instructions and test the limits of your processor’s fault tolerance.
 
 **Features at a glance:**
 

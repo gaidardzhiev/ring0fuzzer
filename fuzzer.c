@@ -38,7 +38,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Ivan Gaydardzhiev");
-MODULE_DESCRIPTION("x86_64 CPU instruction fuzzer for Intel Ivy Bridge");
+MODULE_DESCRIPTION("x86_64 CPU instruction fuzzer");
 MODULE_VERSION("1.0");
 
 #define DEVICE_NAME "cpu_fuzzer"
