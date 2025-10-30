@@ -15,4 +15,7 @@ install: $(BIN)
 	install -m 644 $(BIN) /lib/modules/$(shell uname -r)/extra/
 	depmod -a
 
+load:
+	sudo modprobe fuzzer
+
 .PHONY: all clean install
