@@ -71,3 +71,8 @@ Module parameters exposed via sysfs or at load time:
 
 ---
 
+## License
+
+This project is provided under the GPL3 License.
+
+---
