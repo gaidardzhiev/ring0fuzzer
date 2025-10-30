@@ -60,7 +60,7 @@ This script repeatedly reads binary records, parses fields, and prints concise h
 Module parameters exposed via sysfs or at load time:
 
 - `max_iterations`    (ulong): Maximum fuzz iterations (default 0 = unlimited).
-- `fuzz_timeout_ms`   (uint) : Execution timeout per instruction in ms (default 250).
+- `fuzz_timeout_ms`   (uint) : Execution timeout per instruction in ms (default 256).
 - `fuzz_random`       (bool) : Enable random instruction generation (default true).
 
 ## Files Provided
@@ -86,7 +86,7 @@ Module parameters exposed via sysfs or at load time:
 - Execution Environment Constraints:
   - Single fuzz thread per CPU may underutilize multi core capabilities.
   - No explicit CPU affinity or scheduling controls to isolate fuzzing fully.
-  - Fixed 250ms instruction timeout is coarse and static.
+  - Fixed 256ms instruction timeout is coarse and static.
 
 - MSR Management:
   - Hardcoded fixed MSR list; no dynamic discovery or broader register state coverage.
