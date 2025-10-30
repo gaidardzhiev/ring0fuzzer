@@ -2,7 +2,7 @@
 
 Take your `x86_64` CPU to the edge by fuzzing raw instructions deep in ring 0, no user space hand holding here. This isn’t a playground toy; it’s a serious kernel module designed to smash undocumented CPU instructions and test the limits of your processor’s fault tolerance.
 
-## Features at a glance:
+## What it Does
 
 - Generate and execute randomized junk instructions on the CPU, then observe whether it crashes, faults, or surprisingly survives.
 - Save and restore every CPU register meticulously before and after execution to keep the kernel rock solid.
@@ -11,14 +11,6 @@ Take your `x86_64` CPU to the edge by fuzzing raw instructions deep in ring 0, n
 - Keep kernel space logs for detailed post mortem without flooding dmesg.
 - Control fuzzing via a user space character device interface ditch the pointless dmesg yelling.
 - Built in watchdog timers to keep your system from freezing on bad instruction blasts.
-
-## What it Does
-
-- Generates short instruction sequences either randomly or incrementally.
-- Executes these sequences safely inside the kernel with full CPU state restoration.
-- Captures and classifies CPU faults immediately for clean recovery.
-- Logs execution results with precise timestamps, fault status, and full register dumps.
-- Exposes a minimal character device for user space control and real time log access.
 
 ## Design Notes
 
