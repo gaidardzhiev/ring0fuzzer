@@ -327,20 +327,18 @@ static int execute_instruction_safe(const u8 *code, size_t len, struct exec_resu
 	ctx->fixup_ip = (unsigned long)&&fault_fixup;
 	memcpy(exec_area, exec_stub_prologue, sizeof(exec_stub_prologue));
 	memcpy(exec_area + sizeof(exec_stub_prologue), code, len);
-	memcpy(exec_area + sizeof(exec_stub_prologue) + len,
-	       exec_stub_epilogue, sizeof(exec_stub_epilogue));
+	memcpy(exec_area + sizeof(exec_stub_prologue) + len, exec_stub_epilogue, sizeof(exec_stub_epilogue));
 	total_len = sizeof(exec_stub_prologue) + len + sizeof(exec_stub_epilogue);
-	flush_icache_range((unsigned long)exec_area,
-			   (unsigned long)exec_area + total_len);
+	flush_icache_range((unsigned long)exec_area, (unsigned long)exec_area + total_len);
 	entry = (void (*)(void))exec_area;
 	kernel_fpu_begin();
 	entry();
 	kernel_fpu_end();
 	goto out;
-fault_fixup:
+	fault_fixup:
 	kernel_fpu_end();
 	ctx->fault_seen = true;
-out:
+	out:
 	fault_seen = ctx->fault_seen;
 	ctx->active = false;
 	ctx->res = NULL;
@@ -513,7 +511,7 @@ static int init_exec_buffers(void) {
 		mapping->addr = addr;
 	}
 	return 0;
-err:
+	err:
 	for_each_possible_cpu(cpu) {
 		struct exec_mapping *mapping = per_cpu_ptr(&exec_mappings, cpu);
 		if (mapping->addr)
@@ -580,17 +578,17 @@ static int __init fuzzer_module_init(void) {
 	}
 	pr_info("fuzzer: module loaded /dev/%s\n", DEVICE_NAME);
 	return 0;
-del_cdev:
+	del_cdev:
 	cdev_del(&fuzzer_cdev);
-destroy_class:
+	destroy_class:
 	class_destroy(fuzzer_class);
-unregister_chrdev:
+	unregister_chrdev:
 	unregister_chrdev_region(fuzzer_dev, 1);
-unregister_die:
+	unregister_die:
 	unregister_die_notifier(&die_nb);
-free_exec:
+	free_exec:
 	free_exec_buffers();
-free_log:
+	free_log:
 	kfree(log_buffer);
 	return ret;
 }
