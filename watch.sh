@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# ========================================== #
+#                                            #
+#                  WARNING                   #
+#              work in progress              #
+#     do not use or rely on this script      #
+#                                            #
+# ========================================== #
+
 DEV=${1:-/dev/cpu_fuzzer}
 REC_SIZE="176"
 TMP=$(mktemp) || exit 1
